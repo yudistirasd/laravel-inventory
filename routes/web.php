@@ -14,7 +14,8 @@
 Route::get('/', 'Auth\LoginController@showLoginForm');
 
 Route::group(['prefix'  => 'admin','middleware' =>  'admin'], function(){
-  Route::get('/', 'AdminController@dashboard');
+  Route::get('/', 'Admin\DashboardController@index');
+  Route::resource('/supliers', 'Admin\SupliersController');
 });
 Auth::routes();
 

@@ -18,8 +18,6 @@ class CreateItemsTable extends Migration
           $table->string('name');
           $table->integer('categori_id')->unsigned();
           $table->integer('suplier_id')->unsigned();
-          $table->integer('buy_price');
-          $table->integer('sell_price');
           $table->integer('stock');
 
           $table->foreign('categori_id')->references('id')->on('categories');

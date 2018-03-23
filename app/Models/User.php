@@ -42,10 +42,19 @@ class User extends Authenticatable
       }
     }
 
-    public function isAdmin()
+    public function role()
     {
-      if($this->role == 1) return true;
-      return false;
+      if($this->role == 0){
+        return 'admin';
+      }elseif($this->role == 1){
+        return 'manager';
+      }elseif ($this->role == 2) {
+        return 'gudang';
+      }elseif ($this->role == 3) {
+        return 'suplier';
+      }else{
+        return false;
+      }
     }
 
 }

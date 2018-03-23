@@ -12,17 +12,26 @@ class LoginController extends Controller
     use AuthenticatesUsers;
 
     protected $redirectAfterLogout = '/login';
-    
+
     /**
-     * Where to redirect users after login.
+     * redirect user sesuai dengan rolenya ketika berhasil login
      *
      * @var string
      */
 
     public function authenticated()
     {
-      if(Auth::user()->isAdmin() == 1) return redirect('/admin');
-      return redirect('/home');
+      if(Auth::user()->role == 0){
+        return redirect('/admin');
+      }elseif(Auth::user()->role == 1){
+        return redirect('/manager');
+      }elseif (Auth::user()->role == 2) {
+        return redirect('/gudang');
+      }elseif (Auth::user()->role == 3) {
+        return redirect('/suplier');
+      }else{
+        return abort(403);
+      }
     }
 
     /**

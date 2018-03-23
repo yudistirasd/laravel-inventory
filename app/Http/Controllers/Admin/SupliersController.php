@@ -2,10 +2,12 @@
 
 namespace App\Http\Controllers\Admin;
 
+use Illuminate\Database\QueryException as QueryException;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Suplier;
 use Alert;
+
 
 class SupliersController extends Controller
 {
@@ -60,10 +62,13 @@ class SupliersController extends Controller
 
     public function destroy($id)
     {
-      Suplier::destroy($id);
-
-      Alert::success('Data berhasil dihapus', 'Success');
-
-      return response()->json();
+      try {
+        Suplier::destroy($id);
+        Alert::success('', 'Data berhasil dihapus !');
+      } catch (QueryException $e){
+        if($e->errorInfo[0] == 23000 && $e->errorInfo[1] == 1451)
+          Alert::error('Mohon hapus data barang yang berkaitan dengan '. Suplier::find($id)->name . ' terlebih dahulu', 'Data gagal dihapus !');
+      }
+      return redirect('/admin/supliers');
     }
 }

@@ -1,0 +1,40 @@
+Desain db inventory gudang:
+  Users :
+    - id
+    - username
+    - password
+    - level(hak akses)
+    - status(hak login)
+
+  Supliers :
+    - id
+    - name
+    - status(aktif / tidak)
+    - user_id
+
+  categories :
+    - id
+    - name
+
+  items :
+    - id
+    - name
+    - category_id ( many to one relation )
+    - suplier_id ( many to one relation )
+    - stock
+
+  items_out :
+    - id
+    - item_id
+
+  items_in :
+    - id
+    - item_id
+
+  orders  :
+    - id
+    - item_id
+    - suplier_id
+    - stock
+    - date
+    - status ( dikirim, sedang di proses, stock habis)

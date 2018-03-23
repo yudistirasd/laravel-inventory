@@ -26,7 +26,14 @@
                   <td>{{ $index +1 }}</td>
                   <td>{{ $suplier->name }}</td>
                   <td>{{ $suplier->status == 1 ? 'Aktif' : 'Tidak Aktif' }}</td>
-                  <td><a href="/admin/supliers/{{ $suplier->id }}/edit"><i class="fa fa-edit"></i> Edit</a> | <a href="" class="btn-delete" data-id="{{ $suplier->id }}" data-token="{{ csrf_token() }}"><i class="fa fa-trash"></i> Hapus</a></td>
+                  <td>
+                    <a href="/admin/supliers/{{ $suplier->id }}/edit"><i class="fa fa-edit"></i> Edit</a> |
+                    <a href="javascript:;" class="btn-delete"><i class="fa fa-trash"></i> Hapus</a>
+                    <form id="form-delete" action="/admin/supliers/{{ $suplier->id }}" method="post">
+                      {{ csrf_field() }}
+                      <input type="hidden" name="_method" value="DELETE">
+                    </form>
+                  </td>
                 </tr>
               @endforeach
             </tbody>
@@ -39,50 +46,11 @@
     </div>
   </div>
 @endsection
+
 @section('script')
   @if (Session::has('sweet_alert.alert'))
       <script>
         swal( '{!! Session::get('sweet_alert.title') !!}', '{!! Session::get('sweet_alert.text') !!}', '{!! Session::get('sweet_alert.type') !!}' )
       </script>
   @endif
-
-  <script>
-    $('.btn-delete').on('click', function (e) {
-      e.preventDefault();
-      var id = $(this).data('id');
-      var token = $(this).data('token');
-      swal({
-        title: 'Apakah anda yakin?',
-        text: "Data akan dihapus secara permanen!",
-        type: 'warning',
-        showCancelButton: true,
-        confirmButtonColor: '#3085d6',
-        cancelButtonColor: '#d33',
-        confirmButtonText: 'Ya, hapus!',
-        cancelButtonText: 'Tidak, batalkan',
-        showLoaderOnConfirm: true,
-
-        preConfirm: function() {
-          return new Promise(function(resolve) {
-             $.ajax({
-              url: '/admin/supliers/'+id,
-              type: 'POST',
-              data: {
-                id      : id,
-                _method : 'DELETE',
-                _token  : token
-              }
-             })
-             .done(function(){
-               location.reload();
-             })
-             .fail(function(){
-              swal('Oops...', 'Something went wrong with ajax !', 'error');
-             });
-          });
-          },
-        allowOutsideClick: false
-      });
-    });
-  </script>
 @endsection

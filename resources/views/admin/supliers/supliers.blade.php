@@ -4,7 +4,7 @@
 
 @section('content')
   <div class="row">
-    <div class="col-md-6 col-sm-6 col-xs-12">
+    <div class="col-md-12 col-sm-12 col-xs-12">
       <div class="x_panel">
         <div class="x_title">
           <h2>Suplier <small>Data perusahaan penyuplai barang</small></h2>
@@ -16,6 +16,7 @@
               <tr>
                 <th>#</th>
                 <th>Suplier</th>
+                <th>Akun Login</th>
                 <th>Status Suplier</th>
                 <th>Aksi</th>
               </tr>
@@ -25,11 +26,12 @@
                 <tr>
                   <td>{{ $index +1 }}</td>
                   <td>{{ $suplier->name }}</td>
+                  <td>{{ $suplier->user->username }}</td>
                   <td>{{ $suplier->status == 1 ? 'Aktif' : 'Tidak Aktif' }}</td>
                   <td>
-                    <a href="/admin/supliers/{{ $suplier->id }}/edit"><i class="fa fa-edit"></i> Edit</a> |
-                    <a href="javascript:;" class="btn-delete"><i class="fa fa-trash"></i> Hapus</a>
-                    <form id="form-delete" action="/admin/supliers/{{ $suplier->id }}" method="post">
+                    <form class="delete-form" action="/admin/supliers/{{ $suplier->id }}" method="post">
+                      <a href="/admin/supliers/{{ $suplier->id }}/edit"><i class="fa fa-edit"></i> Edit</a> | 
+                      <a href="javascript:;" class="btn-delete"><i class="fa fa-trash"></i> Hapus</a>
                       {{ csrf_field() }}
                       <input type="hidden" name="_method" value="DELETE">
                     </form>
@@ -53,4 +55,24 @@
         swal( '{!! Session::get('sweet_alert.title') !!}', '{!! Session::get('sweet_alert.text') !!}', '{!! Session::get('sweet_alert.type') !!}' )
       </script>
   @endif
+  <script>
+    $('.btn-delete').on('click',function(e){
+      e.preventDefault();
+      var self = $(this);
+      swal({title:'Apakah anda yakin?',
+        text:"Data akan dihapus secara permanen!",
+        type:'warning',showCancelButton:true,
+        confirmButtonColor:'#3085d6',
+        cancelButtonColor:'#d33',
+        confirmButtonText:'Ya !',
+        cancelButtonText:'Tidak, batalkan',
+        showLoaderOnConfirm:true,
+        allowOutsideClick:false
+      }).then((result) => {
+        if (result.value) {
+          self.parents(".delete-form").submit();
+        }
+      });
+    });
+  </script>
 @endsection

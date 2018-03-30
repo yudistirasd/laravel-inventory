@@ -6,7 +6,9 @@ use Illuminate\Database\QueryException as QueryException;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Suplier;
+use App\Models\User;
 use Alert;
+use DB;
 
 
 class SupliersController extends Controller
@@ -17,20 +19,28 @@ class SupliersController extends Controller
         return view('admin.supliers.supliers', ['supliers' => $supliers]);
     }
 
-    public function create(){
-        return view('admin.supliers.addSuplier');
+    public function create()
+    {
+        $users =  DB::table('users')->where('role', 3)->whereNotExists(function ($query) {
+                      $query->select(DB::raw(1))
+                      ->from('supliers')
+                      ->whereRaw('users.id = supliers.user_id');
+                    })->get();
+        return view('admin.supliers.addSuplier', ['users' => $users]);
     }
 
     public function store(Request $request)
     {
         $this->validate($request, [
-          'suplierName' => 'required|min:15',
-          'status'      => 'required'
+          'suplierName' => 'required|min:9',
+          'status'      => 'required',
+          'userAccount'        => 'required'
         ]);
 
         $suplier          = new Suplier;
         $suplier->name    = $request->suplierName;
         $suplier->status  = $request->status;
+        $suplier->user_id = $request->userAccount;
         $suplier->save();
 
         Alert::success('Data berhasil ditambahkan', 'Success');
@@ -45,17 +55,24 @@ class SupliersController extends Controller
 
     public function edit($id)
     {
-        return view('admin.supliers.editSuplier', ['suplier' => Suplier::find($id)]);
+      $users =  DB::table('users')->where('role', 3)->whereNotExists(function ($query) {
+                    $query->select(DB::raw(1))
+                    ->from('supliers')
+                    ->whereRaw('users.id = supliers.user_id');
+                  })->get();
+      return view('admin.supliers.editSuplier', ['suplier' => Suplier::find($id), 'users'  => $users]);
     }
 
     public function update(Request $request, $id)
     {
+        
         $suplier          = Suplier::find($id);
         $suplier->name    = $request->suplierName;
         $suplier->status  = $request->status;
+        $suplier->user_id = $request->userAccount;
         $suplier->save();
 
-        Alert::success('Data berhasil diupdate', 'Success');
+        Alert::success('Data berhasil dirubah', 'Success');
 
         return redirect('/admin/supliers');
     }

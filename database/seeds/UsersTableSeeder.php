@@ -15,24 +15,26 @@ class UsersTableseeder extends Seeder
     {
         $faker = Faker::create();
         for ($i=0; $i < 4 ; $i++) {
-          if ($i == 1) {
-            $username = 'manajer';
-            $level    = 1;
-          }elseif($i == 2){
-            $username = 'gudang';
-            $level  = 2;
-          }elseif($i == 3){
-            $username = 'suplier';
-            $level    = 3;
-          }else{
-            $username = 'admin';
-            $level    = 0;
-          }
+          // if ($i == 1) {
+          //   $username = 'manajer';
+          //   $role    = 1;
+          // }elseif($i == 2){
+          //   $username = 'gudang';
+          //   $role  = 2;
+          // }elseif($i == 3){
+          //   $username = 'suplier';
+          //   $role    = 3;
+          // }else{
+          //   $username = 'admin';
+          //   $role    = 0;
+          // }
 
+          $username   = 'suplier'.$i;
+          $role       = 3;
           DB::table('users')->insert([
               'name' => $faker->name,
               'username' => $username,
-              'level'    => $level,
+              'role'    => $role,
               'password' => bcrypt('secret'),
               'status'   => 1,
           ]);

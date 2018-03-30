@@ -98,9 +98,11 @@ return [
     */
 
     'custom' => [
-        'attribute-name' => [
-            'rule-name' => 'custom-message',
-        ],
+        'username' => ['required' => 'Username diperlukan'],
+        'password' => ['required' => 'Password diperlukan'],
+        'suplierName' => ['required' => 'Nama suplier tidak boleh kosong'],
+        'status'   => ['required' =>  'Status tidak boleh kosong'],
+        'userAccount' => ['required'  => 'Akun suplier tidak boleh kosong'],
     ],
 
     /*

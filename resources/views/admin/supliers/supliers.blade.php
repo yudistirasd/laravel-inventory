@@ -30,7 +30,7 @@
                   <td>{{ $suplier->status == 1 ? 'Aktif' : 'Tidak Aktif' }}</td>
                   <td>
                     <form class="delete-form" action="/admin/supliers/{{ $suplier->id }}" method="post">
-                      <a href="/admin/supliers/{{ $suplier->id }}/edit"><i class="fa fa-edit"></i> Edit</a> | 
+                      <a href="/admin/supliers/{{ $suplier->id }}/edit"><i class="fa fa-edit"></i> Edit</a> |
                       <a href="javascript:;" class="btn-delete"><i class="fa fa-trash"></i> Hapus</a>
                       {{ csrf_field() }}
                       <input type="hidden" name="_method" value="DELETE">
@@ -55,24 +55,4 @@
         swal( '{!! Session::get('sweet_alert.title') !!}', '{!! Session::get('sweet_alert.text') !!}', '{!! Session::get('sweet_alert.type') !!}' )
       </script>
   @endif
-  <script>
-    $('.btn-delete').on('click',function(e){
-      e.preventDefault();
-      var self = $(this);
-      swal({title:'Apakah anda yakin?',
-        text:"Data akan dihapus secara permanen!",
-        type:'warning',showCancelButton:true,
-        confirmButtonColor:'#3085d6',
-        cancelButtonColor:'#d33',
-        confirmButtonText:'Ya !',
-        cancelButtonText:'Tidak, batalkan',
-        showLoaderOnConfirm:true,
-        allowOutsideClick:false
-      }).then((result) => {
-        if (result.value) {
-          self.parents(".delete-form").submit();
-        }
-      });
-    });
-  </script>
 @endsection

@@ -86,6 +86,14 @@ return [
     'uploaded'             => 'The :attribute failed to upload.',
     'url'                  => 'The :attribute format is invalid.',
 
+
+
+    // Custom Global Validation
+
+    'required'             => ':attribute tidak boleh kosong.',
+    'min'                  => [
+        'string'  => ':attribute minimal :min karakter',
+    ],
     /*
     |--------------------------------------------------------------------------
     | Custom Validation Language Lines
@@ -98,11 +106,8 @@ return [
     */
 
     'custom' => [
-        'username' => ['required' => 'Username diperlukan'],
-        'password' => ['required' => 'Password diperlukan'],
-        'suplierName' => ['required' => 'Nama suplier tidak boleh kosong'],
-        'status'   => ['required' =>  'Status tidak boleh kosong'],
-        'userAccount' => ['required'  => 'Akun suplier tidak boleh kosong'],
+        'username'            => ['required' => 'Username diperlukan.'],
+        'password'            => ['required' => 'Password diperlukan.'],
     ],
 
     /*
@@ -116,6 +121,11 @@ return [
     |
     */
 
-    'attributes' => [],
+    'attributes' => [
+      'suplierName'   => 'Nama Suplier',
+      'status'        => 'Status',
+      'userAccount'   => 'Akun User',
+      'categoryName'  => 'Nama Kategori',
+    ],
 
 ];

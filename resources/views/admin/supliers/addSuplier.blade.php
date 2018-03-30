@@ -7,7 +7,7 @@
     <div class="col-md-6 col-sm-6 col-xs-12">
       <div class="x_panel">
         <div class="x_title">
-          <h2>Suplier <small>Data perusahaan penyuplai barang</small></h2>
+          <h2>Tambah Supliers</h2>
           <div class="clearfix"></div>
         </div>
         <div class="x_content">
@@ -48,6 +48,7 @@
             </div>
             <div class="form-group">
               <button type="submit" class="btn btn-primary">Simpan</button>
+              <a href=" {{ URL::previous() }}" class="btn btn-primary">Kembali</a>
             </div>
             {{ csrf_field() }}
             </form>

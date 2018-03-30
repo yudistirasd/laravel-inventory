@@ -16,7 +16,11 @@ Route::get('/', 'Auth\LoginController@showLoginForm');
 Route::group(['prefix'  => 'admin','middleware' =>  'admin'], function(){
   Route::get('/', 'Admin\DashboardController@index');
   Route::resource('/supliers', 'Admin\SupliersController');
+  Route::resource('/categories', 'Admin\CategoriesController');
 });
+
+
+
 Auth::routes();
 
 Route::get('/home', 'HomeController@index');

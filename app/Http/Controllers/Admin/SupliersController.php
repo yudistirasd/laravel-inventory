@@ -65,7 +65,7 @@ class SupliersController extends Controller
 
     public function update(Request $request, $id)
     {
-        
+
         $suplier          = Suplier::find($id);
         $suplier->name    = $request->suplierName;
         $suplier->status  = $request->status;

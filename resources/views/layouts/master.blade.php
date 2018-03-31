@@ -26,6 +26,8 @@
     <!-- Sweet alert -->
     <link href="{{ URL::asset("vendors/sweetalert2/sweetalert2.min.css") }}" rel="stylesheet">
 
+    @yield('css')
+    
     <!-- Custom Theme Style -->
     <link href="{{ URL::asset("build/css/custom.min.css") }}" rel="stylesheet">
   </head>

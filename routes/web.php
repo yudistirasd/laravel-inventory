@@ -17,6 +17,7 @@ Route::group(['prefix'  => 'admin','middleware' =>  'admin'], function(){
   Route::get('/', 'Admin\DashboardController@index');
   Route::resource('/supliers', 'Admin\SupliersController');
   Route::resource('/categories', 'Admin\CategoriesController');
+  Route::resource('/items', 'Admin\ItemsController');
 });
 
 
